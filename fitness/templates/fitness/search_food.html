@@ -1,0 +1,71 @@
+{% extends "fitness/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container" id="search-container">
+        <div id="search-div" width="70%">
+            <form id="search-form">
+                <input id="food-input" type="text" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="row" id="food-container">
+            <div class="col-12" id="food-col">
+
+            </div>
+        </div>
+
+        <div id="prev-food-container">
+            <h3>Your meals</h3>
+            {% for food in log_food %}
+                <div class="row">
+                        <button class="btn btn-info prev-food" id="{{ food.id }}">
+                                <p id="name-view">{{ food.name }}</p>
+                                <p id="brand-calories-view">{{ food.brand_owner }}</p>
+                                <p id="brand-calories-view">{{ food.calories }} per {{ food.serving_size }}{{ food.serving_unit }}</p>
+                        </button>
+                </div>
+                <br>
+            {% empty %}
+                <p>You don't have any food yet. Make sure to always log your meals!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container" id="add-food-container">
+        <div>
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="row" id="food-name"></h3>
+                    <h5 class="row" id="food-brand"></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" style="font-size: 50px;"><input class="log-input" id="calories" disabled><p>Calories</p></div>
+                <div class="col-6">
+                    <label id="amount-label" class="row" for="amount">Amount <p id="servingunit"></p> <input class="col-4" id="amount" name="amount"> 
+                        <button style="display: none;" type="button" id="save-meal-edit">Save Edit</button> </label>
+                    <label class="row" for="total-fat">Total Fat (in g): <input class="log-input col-4" id="total-fat" name="total-fat" disabled></label>
+                    <label class="row" for="cholesterol">Cholesterol (in g): <input class="log-input col-4" id="cholesterol" name="cholesterol" disabled></label>
+                    <label class="row" for="sodium">Sodium (in g): <input class="log-input col-4" id="sodium" name="sodium" disabled></label>
+                    <label class="row" for="total-carbs">Carbohydates (in g): <input class="log-input col-4" id="total-carbs" name="total-carbs" disabled></label>
+                    <label class="row" for="protein">Protein (in g): <input class="log-input col-4" id="protein" name="protein" disabled></label>
+                    <p style="display: none;" id="serving_unit"></p>
+                </div>
+            </div>
+            <div id="add-meal-button" style="text-align: end;"><button id="add-meal" type="button" class="btn btn-primary">Add Meal</button></div>
+        </div>
+    </div>
+
+    <footer>
+        <h3>Powered by <a href="https://fdc.nal.usda.gov/api-guide.html">FoodData Central API</a></h3>
+    </footer>
+{% endblock %}
+
+{% block script %}
+    <script>
+        var meal = '{{ log }}';
+    </script>
+    <script src="{% static 'fitness/search_food.js' %}"></script>
+{% endblock %}

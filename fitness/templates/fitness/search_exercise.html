@@ -1,0 +1,58 @@
+{% extends "fitness/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container" id="search-container">
+        <div id="search-div">
+            <form id="search-form" width="70%">
+                <input id="exercise-input" type="text" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="row" id="workout-container">
+            <div class="col-12" id="workout-col">
+
+            </div>
+        </div>
+
+        <div id="prev-workout-container">
+            <h3>Your workouts</h3>
+            {% for exercise in log_exercise %}
+                <div class="row">
+                        <button class="btn btn-info prev-workout" id="{{ exercise.id }}" type="button">
+                            
+                                <p id="name-view">{{ exercise.name }}</p>
+                                <p id="duration-view">{{ exercise.num_of_mins }}mins</p>
+       
+                        </button>
+                </div>
+                <br>
+            {% empty %}
+                <p>You don't have any workouts yet. Make sure to always log your meals!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container" id="add-exercise-container">
+        <div>
+            <div class="row">
+                <div class="col-6">
+                    <h4 class="row" id="exercise-name" name="exercise-name"></h4>
+                    <label class="row" for="duration">Duration (in mins): <input class="col-4" id="duration" name="duration"> <button style="display: none;" type="button" id="save-exercise-edit">Save Edit</button></label>
+                    <label class="row" for="calories">Calories Burnt: <input class="log-input col-4" id="calories" name="calories" disabled></label>
+                </div>
+            </div>
+        </div>
+        <div id="add-exercise-button" style="text-align: end;"><button type="button" class="btn btn-primary" id="add-exercise">Add</button></div>
+    </div>
+
+    <footer>
+        <h3>Powered by <a href="https://www.nutritionix.com/business/api">Nutritionix API</a></h3>
+    </footer>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'fitness/config.js' %}"></script>
+    <script src="{% static 'fitness/search_exercise.js' %}"></script>
+{% endblock %}

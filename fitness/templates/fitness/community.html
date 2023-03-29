@@ -1,0 +1,99 @@
+{% extends "fitness/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="page-view" class="container">
+        <h3>{{ title }}</h3>
+
+        {% if title == "All Posts" and user.is_authenticated %}
+            <div id="new-post-view" class="container align-card-top"> 
+                <h5>New Post</h5>
+                <form action="{% url 'load community' %}" method="POST" id="new-post-form" class="align-card-bottom">
+                    {% csrf_token %}
+                    <input class="form-control" id="content" type="text" name="contents">
+                    <input type="submit" class="btn btn-primary" value="Post"/>
+                </form>
+            </div>
+        {% endif %}
+
+        {% if title == "Profile Page" %}
+            <div class="container">
+                <h4>{{ profile.username }}</h4>
+                <p>{{ profile.no_of_following }} Following {{ profile.no_of_followers }} Followers</p>
+                {% if not is_my_page and user.is_authenticated %}
+                    <form action="{% url 'follow_unfollow' profile.username %}" method="POST">
+                        <button type=submit class="btn btn-outline-primary">
+                            {% if is_following %}
+                                Unfollow
+                            {% else %}
+                                Follow
+                            {% endif %}
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <br>
+
+        {% for post in posts %}
+            <div id="post-view" class="container align-card-top">
+                    <h5><a href="{% url 'profile_page' post.creator %}">{{ post.creator }}</a></h5>
+                    <textarea id="post-view-content-{{ post.id }}" disabled="true" class="post-view-content">{{ post.content }}</textarea>
+                    <hr>
+                    <p style="color: gray; font-size: small;">{{ post.timestamp }}</p>
+                    <hr>
+                    <div id="like-edit-row-{{ post.id }}" class="row likes-edit-view">
+                        <button id="like-unlike-{{ post.id }}" class="like-unlike col-6 btn">
+                            {% if post.liked %}
+                                <i class="fa fa-thumbs-up" id="heart-{{ post.id }}" style="color: red;">
+                                    {{ post.likes }} likes
+                                </i>
+                            {% else %}
+                                <i class="fa fa-thumbs-o-up" id="empty-heart-{{ post.id }}">
+                                    {{ post.likes }} likes
+                                </i>
+                            {% endif %}
+                        </button>
+
+                        <button id="dislike-unlike-{{ post.id }}" class="dislike-unlike col-6 btn">
+                            {% if post.disliked %}
+                                <i class="fa fa-thumbs-down" id="down-{{ post.id }}" style="color: red;">
+                                    {{ post.dislikes }} dislikes
+                                </i>
+                            {% else %}
+                                <i class="fa fa-thumbs-o-down" id="empty-down-{{ post.id }}">
+                                    {{ post.dislikes }} dislikes
+                                </i>
+                            {% endif %}
+                        </button>
+
+
+                    </div>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if posts.has_previous %}
+                    <a class="btn btn-outline-primary" href="?page=1">&laquo; first</a>     
+                    <a class="btn btn-outline-primary" href="?page={{ posts.previous_page_number }}">Previous</a> 
+                {% endif %}
+                {% if posts.has_next %}
+                    <a class="btn btn-outline-primary" href="?page={{ posts.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-primary" href="?page={{ posts.paginator.num_pages }}">&laquo; last</a>                
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+    <div>
+        
+    </div>
+    
+{% endblock %}
+
+{% block script %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{% static 'fitness/community.js' %}"></script>
+{% endblock %}

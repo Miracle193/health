@@ -1,0 +1,200 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400);
+
+.container .box .chart {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 25px;
+    line-height: 200px;
+    height: 200px;
+    color: #17d3e6;
+}
+
+.container .box p {
+    text-align: center;
+}
+
+.container .box canvas {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 200px;
+}
+  
+@media (min-width: 40px) and (max-width: 69px) {
+    .container #summary-container  {
+      grid-template-columns: repeat(1, 160px);
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .container .box canvas {
+        left: 41%;
+    }
+
+}
+@media screen and (max-width: 500px){
+    .container .box canvas {
+        left: 31%;
+    }
+}
+  
+.container .box {
+    width: 100%;
+}
+
+div > svg {
+    margin-top: -70px;
+}
+
+.chart-text {
+  font: 16px/1.4em "Montserrat", Arial, sans-serif;
+  fill: #000;
+  -moz-transform: translate(0.5em, 0.6em);
+  -ms-transform: translate(0.5em, 0.6em);
+  -webkit-transform: translate(0.5em, 0.6em);
+  transform: translate(0.53em, 0.6em);
+}
+
+.chart-number {
+  font-size: 0.3em;
+  line-height: 1;
+  text-anchor: middle;
+  -moz-transform: translateY(-0.25em);
+  -ms-transform: translateY(-0.25em);
+  -webkit-transform: translateY(-0.25em);
+  transform: translateY(-0.25em);
+}
+
+.chart-label {
+  font-size: 0.1em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  -moz-transform: translateY(0.7em);
+  -ms-transform: translateY(0.7em);
+  -webkit-transform: translateY(0.7em);
+  transform: translateY(0.7em);
+}
+
+.budget-label {
+    font-size: 0.1em;
+    text-transform: uppercase;
+    text-anchor: middle;
+    -moz-transform: translateY(2em);
+    -ms-transform: translateY(2em);
+    -webkit-transform: translateY(2em);
+    transform: translateY(2em);
+  }
+
+#duration-view {
+    margin-top: -15px;
+    color: white;
+    font-size: 15px;
+}
+
+#brand-calories-view {
+    margin-top: -15px;
+    color: white;
+    font-size: 15px;
+}
+
+#name-view { 
+    font-size: 20px;
+    color: black;
+}
+
+#search-container {
+    text-align: center;
+    font-size: x-large;
+}
+
+.prev-workout {
+    border: 0.01px groove grey;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.prev-food {
+    border: 0.01px groove grey;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.btn-info {
+    color: #17d3e6;
+}
+
+#add-exercise-container .row {
+    justify-content: center;
+    font-size: large;
+}
+
+.log-input {
+    border: hidden;
+    background-color: white;
+    color: black;
+}
+
+.diet-list {
+    margin-left: 10px;
+}
+
+.cal-mins {
+    margin-top: -20px;
+    color: grey; 
+}
+
+.calories-meal-burnt {
+    color: grey;
+    text-align: center;
+}
+
+.delete-diet-button {
+    border: hidden;
+    background-color: white;
+    text-align: end;
+    width: 100%
+}
+
+.div-diet-card {
+    border: 0.01px groove grey;
+    border-radius: 10px;
+}
+
+.form-button {
+    text-align: end;
+}
+
+.align-card-top {
+    padding-top: 20px;
+}
+
+#new-post-view {
+    border: 1px groove grey;
+}
+
+#post-view {
+    border: 1px groove grey;
+}
+
+.pagination {
+    justify-content: flex-end;
+}
+
+.post-view-content {
+    border: hidden;
+    background-color: #fff;
+    color: black;
+    outline: none;
+    overflow: auto;
+    resize: none;
+    width: 100%;
+    margin-bottom: -15px;
+}
+
+.likes-edit-view {
+    margin-top: -15px;
+}

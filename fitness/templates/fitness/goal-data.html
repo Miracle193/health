@@ -1,0 +1,39 @@
+{% extends "fitness/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+        <form action="{% url 'goal data' %}" method="POST">
+            {% csrf_token %}
+            <label for="log-weight"></label>
+            <input type="text" name="log-weight">
+            <button>Log Weight</button>
+        </form>
+        <br>
+        <canvas id="line-chart", width="800", height="450"></canvas>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        //From MIT License
+        var decodeHTML = function (html) {
+        var txt = document.createElement('textarea');
+        txt.innerHTML = html;
+        return txt.value;
+        };
+
+        const prev_days = decodeHTML('{{ prev_days }}').replace("[", "").replace("]", "").split(',');
+        console.log('{{ prev_weights }}');
+        console.log(prev_days);
+        var prev_weights = JSON.parse('{{ prev_weights }}');
+        var goal_unit = '{{ goal_unit }}';
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="{% static 'fitness/goal-data.js' %}"></script>
+{% endblock %}

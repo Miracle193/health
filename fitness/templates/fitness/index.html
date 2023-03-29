@@ -1,0 +1,104 @@
+{% extends "fitness/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+        <div class="container" id="tasks-container">
+            <div>{{ num_of_tasks_completed }} of 4 daily tasks completed</div>
+            <div class="row">
+                <div class="col-4">
+                    {% if breakfast_logged %}
+                        <input type="checkbox" id="breakfast" name="breakfast" value="Breakfast" disabled checked>
+                        <a href="{% url 'log food' 'breakfast' %}">Log Breakfast</a>
+                    {% else %}
+                        <input type="checkbox" id="breakfast" name="breakfast" value="Breakfast" disabled>
+                        <a style="color: black;" href="{% url 'log food' 'breakfast' %}">Log Breakfast</a>
+                    {% endif %}
+                </div>
+                <div class="col-4">
+                    {% if lunch_logged %}
+                        <input type="checkbox" id="lunch" name="lunch" value="Lunch" disabled checked>
+                        <a href="{% url 'log food' 'lunch' %}">Log Lunch</a>
+                    {% else %}
+                        <input type="checkbox" id="lunch" name="lunch" value="Lunch" disabled>
+                        <a style="color: black;" href="{% url 'log food' 'lunch' %}">Log Lunch</a>
+                    {% endif %}
+                </div>
+                <div class="col-4">
+                    {% if dinner_logged %}
+                        <input type="checkbox" id="dinner" name="dinner" value='true' disabled checked>
+                        <a href="{% url 'log food' 'dinner' %}">Log Dinner</a>
+                    {% else %}
+                        <input type="checkbox" id="dinner" name="dinner" value='true' disabled>
+                        <a style="color: black;" href="{% url 'log food' 'dinner' %}">Log Dinner</a>
+                    {% endif %}
+                </div>
+                <div class="col-4">
+                    {% if weight_logged %}
+                        <input type="checkbox" id="weight" name="weight" value="weight" disabled checked>
+                        <a href="{% url 'goal data' %}">Log Weight</a>
+                    {% else %}
+                        <input type="checkbox" id="weight" name="weight" value="weight" disabled>
+                        <a style="color: black;" href="{% url 'goal data' %}">Log Weight</a>
+                    {% endif %}             
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="summary-container">
+            <h3>Summary</h3>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                  <input id="calories" type="radio" name="options" id="option1" autocomplete="off"> Calories
+                </label>
+                <label class="btn btn-secondary">
+                  <input id="macronutrients" type="radio" name="options" id="option2" autocomplete="off"> Macronutrients
+                </label>
+            </div>
+
+            <div id="calorie-visual">
+                <svg width="100%" height="60%" viewBox="0 0 42 42" class="donut" id="cal-visual">
+                    <circle class="donut-hole" cx="21" cy="21" r="9.549296586" fill="#fff"></circle>
+                    <circle class="donut-ring" cx="21" cy="21" r="9.549296586" fill="transparent" stroke="#d2d3d4" stroke-width="3"></circle>       
+                </svg>
+                <canvas id="bar-chart"></canvas>
+            </div>
+
+            <div id="macronutrients-visual">
+                <canvas id="doughnut-chart" width="800" height="450"></canvas>
+                <br>
+                <canvas id="macro-bar-chart"></canvas>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        const day_name = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
+        const colors = ["#17d3e6", "white", "red"]
+        var num_of_calories = '{{ num_of_calories }}';
+        var budget_calories = '{{ budget_calories }}';
+        var prev_days = JSON.parse('{{ prev_days }}');
+        var prev_calories = JSON.parse('{{ prev_calories }}');
+        if ('{{ over_budget }}' === ''){
+            var over_budget = []
+        } else {
+            var over_budget = JSON.parse('{{ over_budget }}');
+        }
+        var prev_color = JSON.parse('{{ prev_color }}');
+        var over_color = JSON.parse('{{ over_color }}');
+        var prev_carbs = JSON.parse('{{ prev_carbs }}');
+        var prev_fat = JSON.parse('{{ prev_fat }}');
+        var prev_protein = JSON.parse('{{ prev_protein }}');
+        var today_carbs = parseFloat('{{ today_carbs }}');
+        var today_fat = parseFloat('{{ today_fat }}');
+        var today_protein = parseFloat('{{ today_protein }}');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="{% static 'fitness/index.js' %}"></script>
+{% endblock %}

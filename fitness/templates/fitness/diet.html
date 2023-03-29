@@ -1,0 +1,134 @@
+{% extends "fitness/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+        <div class="div-diet-card" id="breakfast-card">
+            <h4>Breakfast</h4>
+            <ul id="breakfast-list">
+                {% for meal in breakfast %}
+                    <li id="li-breakfast-{{ meal.id }}">
+                        <div class="row diet-list">
+                            <div class="col-4">
+                                <p class="row">{{ meal.name }}</p>
+                                <p class="row cal-mins">{{ meal.serving_size}}{{ meal.serving_unit}}</p>
+                            </div>
+                            <div class="col-3 calories-meal-burnt"><p>{{ meal.calories }}</p></div>
+                            <div class="col-4"><button class="delete-diet-button" id="breakfast-{{ meal.id }}"><i class="material-icons" style="color:red">cancel</i></button></div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>
+                        You haven't logged any breakfast yet! 
+                    </li>
+                {% endfor %}
+            </ul>
+            <form class="form-button" action="{% url 'log food' 'breakfast' %}"><button class="btn btn-primary">Add Breakfast</button></form>
+        </div>
+
+        <br>
+
+        <div class="div-diet-card" id="lunch-card">
+            <h4>Lunch</h4>
+            <ul id="lunch-list">
+                {% for meal in lunch %}
+                    <li id="li-lunch-{{ meal.id }}">
+                        <div class="row diet-list">
+                            <div class="col-4">
+                                <p class="row">{{ meal.name }}</p>
+                                <p class="row cal-mins">{{ meal.serving_size}}{{ meal.serving_unit}}</p>
+                            </div>
+                            <div class="col-3 calories-meal-burnt"><p>{{ meal.calories }}</p></div>
+                            <div class="col-4"><button class="delete-diet-button" id="lunch-{{ meal.id }}"><i class="material-icons" style="color:red">cancel</i></button></div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>
+                        You haven't logged any lunch yet! 
+                    </li>
+                {% endfor %}
+            </ul>
+            <form class="form-button" action="{% url 'log food' 'lunch' %}"><button class="btn btn-primary">Add Lunch</button></form>
+        </div>
+
+        <br>
+
+        <div class="div-diet-card" id="dinner-card">
+            <h4>Dinner</h4>
+            <ul id="dinner-list">
+                {% for meal in dinner %}
+                    <li id="li-dinner-{{ meal.id }}">
+                        <div class="row diet-list">
+                            <div class="col-4">
+                                <p class="row">{{ meal.name }}</p>
+                                <p class="row cal-mins">{{ meal.serving_size}}{{ meal.serving_unit}}</p>
+                            </div>
+                            <div class="col-3 calories-meal-burnt"><p>{{ meal.calories }}</p></div>
+                            <div class="col-4"><button class="delete-diet-button" id="dinner-{{ meal.id }}"><i class="material-icons" style="color:red">cancel</i></button></div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>
+                        You haven't logged any dinner yet! 
+                    </li>
+                {% endfor %}
+            </ul>
+            <form class="form-button" action="{% url 'log food' 'dinner' %}"><button class="btn btn-primary">Add Dinner</button></form>
+        </div>
+
+        <br>
+
+        <div class="div-diet-card" id="snacks-card">
+            <h4>Snacks</h4>
+            <ul id="snacks-list">
+                {% for meal in snacks %}
+                    <li id="li-snacks-{{ meal.id }}">
+                        <div class="row diet-list">
+                            <div class="col-4">
+                                <p class="row">{{ meal.name }}</p>
+                                <p class="row cal-mins">{{ meal.serving_size}}{{ meal.serving_unit}}</p>
+                            </div>
+                            <div class="col-3 calories-meal-burnt"><p>{{ meal.calories }}</p></div>
+                            <div class="col-4"><button class="delete-diet-button" id="snacks-{{ meal.id }}"><i class="material-icons" style="color:red">cancel</i></button></div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>
+                        You haven't logged any snacks yet! 
+                    </li>
+                {% endfor %}
+            </ul>
+            <form class="form-button" action="{% url 'log food' 'snacks' %}"><button class="btn btn-primary">Add Snacks</button></form>
+        </div>
+
+        <br>
+
+        <div class="div-diet-card" id="exercise-card">
+            <h4>Exercise</h4>
+            <ul id="exercise-list">
+                {% for workout in exercise %}
+                    <li id="li-exercise-{{ workout.id }}">
+                        <div class="row diet-list">
+                            <div class="col-4">
+                                <p class="row">{{ workout.name }}</p>
+                                <p class="row cal-mins">{{ workout.num_of_mins}}mins</p>
+                            </div>
+                            <div class="col-3 calories-meal-burnt"><p>{{ workout.calories_burnt }}</p></div>
+                            <div class="col-4"><button class="delete-diet-button" id="exercise-{{ workout.id }}"><i class="material-icons" style="color:red">cancel</i></button></div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>
+                        You haven't logged any workouts yet! 
+                    </li>
+                {% endfor %}
+            </ul>
+            <form class="form-button" action="{% url 'log exercise' %}"><button class="btn btn-primary">Add Workout</button></form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'fitness/diet.js' %}"></script>
+{% endblock %}
